@@ -3,6 +3,6 @@
 
 class Room {
 private:
-  std::string roomname;
-  uint16_t capacity;
+  std::string m_roomname;
+  uint16_t m_capacity;
 };

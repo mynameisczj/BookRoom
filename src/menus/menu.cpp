@@ -1,4 +1,4 @@
-#include "menus/menu.h"
+#include "menus/menu.hpp"
 
 void Menu::run() {
   while (m_running) {

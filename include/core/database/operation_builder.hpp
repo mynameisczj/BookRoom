@@ -1,6 +1,6 @@
 #pragma once
 
-#include "jsondb.h"
+#include "jsondb.hpp"
 #include <functional>
 #include <nlohmann/json.hpp>
 #include <optional>

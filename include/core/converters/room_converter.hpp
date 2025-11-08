@@ -1,4 +1,4 @@
-#include "core/entities/room.h"
+#include "core/entities/room.hpp"
 #include <nlohmann/json.hpp>
 #include <vector>
 using json = nlohmann::json;

@@ -1,4 +1,4 @@
-#include "core/entities/reservation.h"
+#include "core/entities/reservation.hpp"
 #include <nlohmann/json.hpp>
 #include <vector>
 using json = nlohmann::json;

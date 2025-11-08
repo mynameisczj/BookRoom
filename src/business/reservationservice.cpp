@@ -1,6 +1,6 @@
-#include "business/reservationservice.h"
-#include "core/database/operation_builder.h"
-#include "core/entities/common.h"
+#include "business/reservationservice.hpp"
+#include "core/database/operation_builder.hpp"
+#include "core/entities/common.hpp"
 #include <vector>
 
 std::vector<Reservation> ReservationService::getPersonalReservations(uint64_t userId) {

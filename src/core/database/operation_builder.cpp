@@ -1,4 +1,4 @@
-#include "core/database/operation_builder.h"
+#include "core/database/operation_builder.hpp"
 
 OperationBuilder &OperationBuilder::query() {
   m_operation = "query";

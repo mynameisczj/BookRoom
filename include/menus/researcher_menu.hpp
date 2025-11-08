@@ -1,4 +1,4 @@
-#include "menus/menu.h"
+#include "menus/menu.hpp"
 class ResearcherMenu : public Menu {
 public:
   void display();

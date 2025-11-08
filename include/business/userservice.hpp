@@ -1,8 +1,8 @@
 #pragma once
-#include "core/converters/user_converter.h"
-#include "core/database/operation_builder.h"
-#include "core/entities/common.h"
-#include "core/entities/user.h"
+#include "core/converters/user_converter.hpp"
+#include "core/database/operation_builder.hpp"
+#include "core/entities/common.hpp"
+#include "core/entities/user.hpp"
 
 class UserService {
 private:

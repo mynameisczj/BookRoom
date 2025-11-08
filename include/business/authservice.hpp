@@ -1,6 +1,6 @@
 #pragma once
-#include "core/converters/user_converter.h"
-#include "core/database/operation_builder.h"
+#include "core/converters/user_converter.hpp"
+#include "core/database/operation_builder.hpp"
 #include <string>
 class AuthService {
 private:

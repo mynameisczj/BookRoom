@@ -13,7 +13,7 @@ private:
   void init();
 
 public:
-  JsonDatabase(const std::string &_filename = "data.json") : filename(_filename) {
+  JsonDatabase(const std::string &_filename = "data.json") : m_filename(_filename) {
     init();
   }
   JsonDatabase(const JsonDatabase &) = delete;
@@ -27,6 +27,6 @@ public:
   bool update(const std::string &tableName, uint64_t id, const json &updates);
 
 private:
-  json jsondata;
-  std::string filename;
+  json m_jsondata;
+  std::string m_filename;
 };

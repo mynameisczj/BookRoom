@@ -1,7 +1,7 @@
 #pragma once
-#include "core/converters/room_converter.h"
-#include "core/database/operation_builder.h"
-#include "core/entities/common.h"
+#include "core/converters/room_converter.hpp"
+#include "core/database/operation_builder.hpp"
+#include "core/entities/common.hpp"
 
 class RoomService {
 private:

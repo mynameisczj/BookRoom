@@ -1,4 +1,4 @@
-#include "core/database/jsondb.h"
+#include "core/database/jsondb.hpp"
 
 bool JsonDatabase::loadFromFile() {
   return {};

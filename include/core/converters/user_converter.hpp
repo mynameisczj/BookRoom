@@ -1,4 +1,4 @@
-#include "core/entities/user.h"
+#include "core/entities/user.hpp"
 #include <nlohmann/json.hpp>
 #include <vector>
 using json = nlohmann::json;
