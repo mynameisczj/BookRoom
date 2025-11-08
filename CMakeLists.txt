@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(MyGTestProject VERSION 1.0.0 LANGUAGES CXX)
+project(BookRoom VERSION 1.0.0 LANGUAGES CXX)
 
 # 设置 C++ 标准
 set(CMAKE_CXX_STANDARD 17)
@@ -21,6 +21,7 @@ FetchContent_Declare(
   # 或者使用 Git（二选一）：
   # GIT_REPOSITORY https://github.com/google/googletest.git
   # GIT_TAG        v1.14.0
+  DOWNLOAD_EXTRACT_TIMESTAMP TRUE
 )
 
 # 设置为 ON 自动将 GTest 添加到构建
@@ -36,7 +37,7 @@ add_executable(main_app
 # 添加头文件搜索路径
 target_include_directories(main_app 
     PRIVATE 
-        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 # 添加测试可执行文件
@@ -53,7 +54,7 @@ target_link_libraries(run_tests
 # 包含头文件路径
 target_include_directories(run_tests
     PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 # 启用测试并注册
