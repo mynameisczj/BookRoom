@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+enable_testing()
+
 # 编译选项
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_compile_options(-g -O0 -Wall -Wextra)
@@ -18,20 +20,62 @@ include(FetchContent)
 FetchContent_Declare(
   googletest
   URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
-  # 或者使用 Git（二选一）：
-  # GIT_REPOSITORY https://github.com/google/googletest.git
-  # GIT_TAG        v1.14.0
   DOWNLOAD_EXTRACT_TIMESTAMP TRUE
 )
 
 # 设置为 ON 自动将 GTest 添加到构建
 set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
 set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
+
+# 自动下载 nlohmann/json - 使用 Git 方式更可靠
+FetchContent_Declare(
+  nlohmann_json
+  GIT_REPOSITORY https://github.com/nlohmann/json.git
+  GIT_TAG        v3.11.2
+)
+
+# 同时下载多个依赖
+FetchContent_MakeAvailable(googletest nlohmann_json)
+
+# 递归查找所有源文件
+file(GLOB_RECURSE SOURCE_FILES 
+    "src/*.cpp"
+    "src/*.c"
+    "src/*.cc"
+)
+
+# 递归查找所有头文件（用于显示在 IDE 中）
+file(GLOB_RECURSE HEADER_FILES 
+    "include/*.hpp"
+    "include/*.h"
+    "src/*.hpp" 
+    "src/*.h"
+)
+
+# 创建核心库
+add_library(core_lib ${SOURCE_FILES} ${HEADER_FILES})
+
+# 包含头文件路径
+target_include_directories(core_lib
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+# 关键：链接 nlohmann_json 到核心库
+target_link_libraries(core_lib
+    PUBLIC
+        nlohmann_json::nlohmann_json
+)
 
 # 添加主程序
 add_executable(main_app 
     src/main.cpp
+)
+
+# 链接主程序到核心库
+target_link_libraries(main_app 
+    PRIVATE 
+        core_lib
 )
 
 # 添加头文件搜索路径
@@ -42,13 +86,15 @@ target_include_directories(main_app
 
 # 添加测试可执行文件
 add_executable(run_tests
-    test/test_main.cpp
+    test/test_jsondb.cpp
 )
 
-# 链接 GTest 库
+# 链接测试可执行文件
 target_link_libraries(run_tests 
     PRIVATE 
-        gtest_main
+        core_lib           # 链接你的核心库
+        GTest::gtest       # 使用 GTest 的 CMake 目标
+        GTest::gtest_main  # 使用 GTest 的 CMake 目标
 )
 
 # 包含头文件路径
@@ -57,11 +103,10 @@ target_include_directories(run_tests
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-# 启用测试并注册
-enable_testing()
-add_test(NAME AllTests COMMAND run_tests)
+add_test(NAME JsonDatabaseTests COMMAND run_tests)
 
-# 可选：添加测试发现（需要 CMake 3.10+）
+
+# 添加测试发现
 include(GoogleTest)
 gtest_discover_tests(run_tests
     EXTRA_ARGS "--gtest_output=xml:${CMAKE_BINARY_DIR}/test_results.xml"

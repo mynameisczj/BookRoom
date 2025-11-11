@@ -10,7 +10,7 @@ void JsonDatabase::init() {
 }
 
 bool JsonDatabase::createTable(const std::string &tableName,
-                               const std::vector<std::string> &columns = {}) {
+                               const std::vector<std::string> &columns) {
   return {};
 }
 uint64_t JsonDatabase::insert(const std::string &tableName, const json &record) {

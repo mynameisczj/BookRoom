@@ -42,15 +42,16 @@ OperationBuilder &OperationBuilder::by(const std::string &colname, const uint64_
 
 json OperationBuilder::execute(JsonDatabase &db) {
   if (m_operation == "query") {
-    return db.query(m_tableName.value(), m_filter);
+    return db.query(m_tableName.value(), m_filter.value());
   } else if (m_operation == "insert") {
-    bool success = db.insert(m_tableName.value(), m_data);
+    bool success = db.insert(m_tableName.value(), m_data.value());
     return json{{"success", success}};
   }
   if (m_operation == "update") {
-    bool success = db.insert(m_tableName.value(), m_data);
+    bool success = db.insert(m_tableName.value(), m_data.value());
     return json{{"success", success}};
   } else {
   }
+  return {};
   // Todo::use map to avoid if-else
 }

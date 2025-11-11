@@ -11,6 +11,7 @@ private:
   bool loadFromFile();
   bool saveToFile();
   void init();
+  std::unordered_map<std::string, uint64_t> m_tableIDCounters;
 
 public:
   JsonDatabase(const std::string &_filename = "data.json") : m_filename(_filename) {
