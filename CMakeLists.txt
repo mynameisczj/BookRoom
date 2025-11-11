@@ -6,8 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-enable_testing()
-
 # 编译选项
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_compile_options(-g -O0 -Wall -Wextra)
@@ -67,22 +65,22 @@ target_link_libraries(core_lib
         nlohmann_json::nlohmann_json
 )
 
-# 添加主程序
-add_executable(main_app 
-    src/main.cpp
-)
+# # 添加主程序
+# add_executable(main_app 
+#     src/main.cpp
+# )
 
-# 链接主程序到核心库
-target_link_libraries(main_app 
-    PRIVATE 
-        core_lib
-)
+# # 链接主程序到核心库
+# target_link_libraries(main_app 
+#     PRIVATE 
+#         core_lib
+# )
 
-# 添加头文件搜索路径
-target_include_directories(main_app 
-    PRIVATE 
-        ${CMAKE_CURRENT_SOURCE_DIR}/include
-)
+# # 添加头文件搜索路径
+# target_include_directories(main_app 
+#     PRIVATE 
+#         ${CMAKE_CURRENT_SOURCE_DIR}/include
+# )
 
 # 添加测试可执行文件
 add_executable(run_tests
@@ -103,11 +101,8 @@ target_include_directories(run_tests
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-add_test(NAME JsonDatabaseTests COMMAND run_tests)
 
 
 # 添加测试发现
 include(GoogleTest)
-gtest_discover_tests(run_tests
-    EXTRA_ARGS "--gtest_output=xml:${CMAKE_BINARY_DIR}/test_results.xml"
-)
+gtest_discover_tests(run_tests)

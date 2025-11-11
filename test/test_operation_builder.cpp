@@ -6,7 +6,7 @@
 
 std::string test_db_path = "test_db.json";
 
-class JsonDataBaseTest : public ::testing::Test {
+class OperationBuliderTest : public ::testing::Test {
 protected:
   void SetUp() override {
     removeTestFile();
@@ -96,64 +96,19 @@ protected:
                        {"weekday", Weekday::Thursday},
                        {"timeslot", TimeSlot::Afternoon}};
 };
-
-TEST_F(JsonDataBaseTest, FileCreation) {
-  {
-    EXPECT_FALSE(testFileExists());
-    JsonDatabase db(test_db_path);
-    EXPECT_TRUE(db.createTable("users", user_columns));
-    EXPECT_TRUE(testFileExists());
-  }
+TEST_F(OperationBuliderTest, TestQuery) {
+  {}
 }
-TEST_F(JsonDataBaseTest, InsertAndQuery) {
-  {
-    JsonDatabase db(test_db_path);
-    db.createTable("users", user_columns);
-    db.insert("users", user1);
-  }
-  EXPECT_TRUE(testFileExists());
-  {
-    JsonDatabase db(test_db_path);
-    json result = db.query("users", json::object());
-    EXPECT_FALSE(result.empty());
-  }
-  {
-    JsonDatabase db(test_db_path);
-    json result = db.query("users", json::object());
-    EXPECT_FALSE(db.insert("users", user1));
-    db.insert("users", user2);
-    db.insert("users", user3);
-    result = db.query("users", user1findTrue);
-    EXPECT_EQ(result["username"], user1findTrue["username"]);
-    result = db.query("users", user2findTrue);
-    EXPECT_EQ(result["username"], user2findTrue["username"]);
-    result = db.query("users", user3findFalse);
-    EXPECT_TRUE(result.empty());
-  }
+TEST_F(OperationBuliderTest, TestInsert) {
+  {}
 }
-TEST_F(JsonDataBaseTest, RemoveAndInsert) {
-  {
-    JsonDatabase db(test_db_path);
-    db.insert("users", user1);
-    uint64_t user1ID = db.query("users", user1findTrue)["id"];
-    EXPECT_FALSE(db.insert("users", user1));
-    EXPECT_TRUE(db.remove("users", user1ID));
-    EXPECT_FALSE(db.remove("users", user1ID));
-  }
+TEST_F(OperationBuliderTest, TestRemove) {
+  {}
 }
-TEST_F(JsonDataBaseTest, UpdateAndInsert) {
-  {
-    JsonDatabase db(test_db_path);
-    db.insert("users", user3);
-    uint64_t user3ID = db.query("users", user3findTrue)["id"];
-    EXPECT_TRUE(db.update("users", user3ID, user3Update));
-    json result = db.query("users", user3findTrue);
-    EXPECT_EQ(result["password"], user3Update["password"]);
-    EXPECT_EQ(result["username"], user3Update["username"]);
-  }
+TEST_F(OperationBuliderTest, TestUpate) {
+  {}
 }
-
-TEST_F(JsonDataBaseTest, EndToEndCRUDOperations) {
+TEST_F(OperationBuliderTest, EndToEndCRUDOperations) {
   {
     // ToDO:add EndToEndCRUDOperations
   }

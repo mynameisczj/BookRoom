@@ -18,7 +18,7 @@ OperationBuilder &OperationBuilder::update(const json &data, const uint64_t &id)
 }
 
 OperationBuilder &OperationBuilder::remove(const uint64_t &id) {
-  m_operation = "delete";
+  m_operation = "remove";
   m_id = id;
   return *this;
 }
@@ -48,10 +48,12 @@ json OperationBuilder::execute(JsonDatabase &db) {
     return json{{"success", success}};
   }
   if (m_operation == "update") {
-    bool success = db.insert(m_tableName.value(), m_data.value());
+    bool success = db.update(m_tableName.value(), m_id.value(), m_data.value());
     return json{{"success", success}};
-  } else {
+  } else if (m_operation == "remove") {
+    bool success = db.remove(m_tableName.value(), m_id.value());
+    return json{{"success", success}};
   }
-  return {};
+  return {{"Error", "Unexcept Operation"}};
   // Todo::use map to avoid if-else
 }
