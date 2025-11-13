@@ -4,8 +4,6 @@
 #include <fstream>
 #include <gtest/gtest.h>
 
-std::string test_db_path = "test_db.json";
-
 class JsonDataBaseTest : public ::testing::Test {
 protected:
   void SetUp() override {
@@ -25,6 +23,7 @@ protected:
     std::remove(test_db_path.c_str());
   }
 
+  std::string test_db_path = "test_db.json";
   // 测试数据
   std::vector<std::string> user_columns = {"employeeID ", "username", "password", "realname",
                                            "Role"};
@@ -109,7 +108,8 @@ TEST_F(JsonDataBaseTest, InsertAndQuery) {
   {
     JsonDatabase db(test_db_path);
     db.createTable("users", user_columns);
-    db.insert("users", user1);
+    uint64_t user1ID = db.insert("users", user1);
+    EXPECT_EQ(user1ID, db.query("users", user1findTrue)["id"]);
   }
   EXPECT_TRUE(testFileExists());
   {
@@ -121,6 +121,7 @@ TEST_F(JsonDataBaseTest, InsertAndQuery) {
     JsonDatabase db(test_db_path);
     json result = db.query("users", json::object());
     EXPECT_FALSE(db.insert("users", user1));
+
     db.insert("users", user2);
     db.insert("users", user3);
     result = db.query("users", user1findTrue);
@@ -134,8 +135,8 @@ TEST_F(JsonDataBaseTest, InsertAndQuery) {
 TEST_F(JsonDataBaseTest, RemoveAndInsert) {
   {
     JsonDatabase db(test_db_path);
-    db.insert("users", user1);
-    uint64_t user1ID = db.query("users", user1findTrue)["id"];
+    EXPECT_TRUE(db.createTable("users", user_columns));
+    uint64_t user1ID = db.insert("users", user1);
     EXPECT_FALSE(db.insert("users", user1));
     EXPECT_TRUE(db.remove("users", user1ID));
     EXPECT_FALSE(db.remove("users", user1ID));
@@ -144,6 +145,7 @@ TEST_F(JsonDataBaseTest, RemoveAndInsert) {
 TEST_F(JsonDataBaseTest, UpdateAndInsert) {
   {
     JsonDatabase db(test_db_path);
+    EXPECT_TRUE(db.createTable("users", user_columns));
     db.insert("users", user3);
     uint64_t user3ID = db.query("users", user3findTrue)["id"];
     EXPECT_TRUE(db.update("users", user3ID, user3Update));

@@ -1,5 +1,11 @@
 #include "core/database/operation_builder.hpp"
-
+OperationBuilder &OperationBuilder::create(const std::string &tablename,
+                                           const std::vector<std::string> &colname) {
+  m_operation = "create";
+  m_tableName = tablename;
+  m_colname = colname;
+  return *this;
+}
 OperationBuilder &OperationBuilder::query() {
   m_operation = "query";
   return *this;
@@ -31,8 +37,8 @@ OperationBuilder &OperationBuilder::where(const json &filter) {
   m_filter = filter;
   return *this;
 }
-OperationBuilder &OperationBuilder::by(const std::string &colname, const std::string &user) {
-  m_filter.value()[colname] = user;
+OperationBuilder &OperationBuilder::by(const std::string &colname, const std::string &colvalue) {
+  m_filter.value()[colname] = colvalue;
   return *this;
 }
 OperationBuilder &OperationBuilder::by(const std::string &colname, const uint64_t &id) {
@@ -41,6 +47,10 @@ OperationBuilder &OperationBuilder::by(const std::string &colname, const uint64_
 }
 
 json OperationBuilder::execute(JsonDatabase &db) {
+  if (m_operation == "create") {
+    bool success = db.createTable(m_tableName.value(), m_colname.value());
+    return json{{"success", success}};
+  }
   if (m_operation == "query") {
     return db.query(m_tableName.value(), m_filter.value());
   } else if (m_operation == "insert") {
@@ -56,4 +66,12 @@ json OperationBuilder::execute(JsonDatabase &db) {
   }
   return {{"Error", "Unexcept Operation"}};
   // Todo::use map to avoid if-else
+}
+void OperationBuilder::reset() {
+  m_tableName.reset();
+  m_filter.reset();
+  m_operation.reset();
+  m_data.reset();
+  m_id.reset();
+  m_colname.reset();
 }

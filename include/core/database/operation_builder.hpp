@@ -15,9 +15,11 @@ private:
   std::optional<std::string> m_operation;
   std::optional<json> m_data;
   std::optional<uint64_t> m_id;
+  std::optional<std::vector<std::string>> m_colname;
 
 public:
   OperationBuilder() = default;
+  OperationBuilder &create(const std::string &tablename, const std::vector<std::string> &colname);
   OperationBuilder &insert(const json &data);
   OperationBuilder &update(const json &data, const uint64_t &id);
   OperationBuilder &remove(const uint64_t &id);
@@ -29,4 +31,6 @@ public:
   OperationBuilder &by(const std::string &colname, const uint64_t &id);
 
   json execute(JsonDatabase &db);
+
+  void reset();
 };
