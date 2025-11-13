@@ -114,7 +114,7 @@ TEST_F(OperationBuliderTest, TestQuery) {
     uint64_t user1ID = db.insert("users", user1);
     EXPECT_EQ(user1ID, db.query("users", user1findTrue)["id"]);
 
-    uint64_t user2ID = db.insert("users", user2);
+    // uint64_t user2ID = db.insert("users", user2);
     result = Opbuilder.from("users")
                  .query()
                  .by("username", user1["username"].get<std::string>())
@@ -162,7 +162,7 @@ TEST_F(OperationBuliderTest, TestRemove) {
     uint64_t user1ID = db.insert("users", user1);
     EXPECT_EQ(user1ID, db.query("users", user1findTrue)["id"]);
 
-    uint64_t user2ID = db.insert("users", user2);
+    // uint64_t user2ID = db.insert("users", user2);
     result = Opbuilder.from("users").query().by("username", "Dolores").execute(db);
     EXPECT_EQ(result["id"], user1ID);
 

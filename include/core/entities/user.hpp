@@ -6,11 +6,14 @@
 using json = nlohmann::json;
 
 class User {
-private:
-  uint64_t m_id;
-  std::string m_employeeID;
-  std::string m_usrername;
-  std::string m_password;
-  std::string m_realname;
-  UserRole m_role;
+public:
+  User() = default;
+  uint64_t m_id{};
+  std::string m_employeeID{};
+  std::string m_username{};
+  std::string m_password{};
+  std::string m_realname{};
+  UserRole m_role{};
+
+  bool operator==(const User &other) const;
 };

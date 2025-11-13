@@ -7,17 +7,5 @@ public:
   static Room jsonToRoom(const json &);
   static std::vector<Room> jsonToRoomVector(const json &);
   static json roomToJson(const Room &);
-  static json roomVectorToJson(const Room &);
+  static json roomVectorToJson(const std::vector<Room> &);
 };
-Room RoomConverter::jsonToRoom(const json &) {
-  return {};
-}
-std::vector<Room> RoomConverter::jsonToRoomVector(const json &) {
-  return {};
-}
-json RoomConverter::roomToJson(const Room &) {
-  return {};
-}
-json RoomConverter::roomVectorToJson(const Room &) {
-  return {};
-}

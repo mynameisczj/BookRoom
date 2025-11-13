@@ -12,6 +12,6 @@ std::vector<Room> RoomConverter::jsonToRoomVector(const json &) {
 json RoomConverter::roomToJson(const Room &) {
   return {};
 }
-json RoomConverter::roomVectorToJson(const Room &) {
+json RoomConverter::roomVectorToJson(const std::vector<Room> &) {
   return {};
 }

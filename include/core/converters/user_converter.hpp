@@ -6,18 +6,6 @@ class UserConverter {
 public:
   static User jsonToUser(const json &);
   static std::vector<User> jsonToUserVector(const json &);
-  static json UserToJson(const User &);
-  static json UserVectorToJson(const User &);
+  static json userToJson(const User &);
+  static json userVectorToJson(const std::vector<User> &);
 };
-User UserConverter::jsonToUser(const json &) {
-  return {};
-}
-std::vector<User> UserConverter::jsonToUserVector(const json &) {
-  return {};
-}
-json UserConverter::UserToJson(const User &) {
-  return {};
-}
-json UserConverter::UserVectorToJson(const User &) {
-  return {};
-}

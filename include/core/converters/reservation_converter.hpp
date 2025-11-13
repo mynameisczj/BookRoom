@@ -7,17 +7,5 @@ public:
   static Reservation jsonToReservation(const json &);
   static std::vector<Reservation> jsonToReservationVector(const json &);
   static json reservationToJson(const Reservation &);
-  static json reservationVectorToJson(const Reservation &);
+  static json reservationVectorToJson(const std::vector<Reservation> &);
 };
-Reservation ReservationConverter::jsonToReservation(const json &) {
-  return {};
-}
-std::vector<Reservation> ReservationConverter::jsonToReservationVector(const json &) {
-  return {};
-}
-json ReservationConverter::reservationToJson(const Reservation &) {
-  return {};
-}
-json ReservationConverter::reservationVectorToJson(const Reservation &) {
-  return {};
-}

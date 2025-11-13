@@ -10,9 +10,9 @@ User UserConverter::jsonToUser(const json &) {
 std::vector<User> UserConverter::jsonToUserVector(const json &) {
   return {};
 }
-json UserConverter::UserToJson(const User &) {
+json UserConverter::userToJson(const User &) {
   return {};
 }
-json UserConverter::UserVectorToJson(const User &) {
+json UserConverter::userVectorToJson(const std::vector<User> &) {
   return {};
 }

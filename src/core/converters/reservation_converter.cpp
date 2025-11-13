@@ -13,6 +13,6 @@ std::vector<Reservation> ReservationConverter::jsonToReservationVector(const jso
 json ReservationConverter::reservationToJson(const Reservation &) {
   return {};
 }
-json ReservationConverter::reservationVectorToJson(const Reservation &) {
+json ReservationConverter::reservationVectorToJson(const std::vector<Reservation> &) {
   return {};
 }

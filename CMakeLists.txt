@@ -86,6 +86,7 @@ target_link_libraries(core_lib
 add_executable(run_tests
     test/test_jsondb.cpp
     test/test_operation_builder.cpp
+    test/test_converter.cpp
 )
 
 # 链接测试可执行文件
