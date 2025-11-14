@@ -4,8 +4,9 @@
 #include <string>
 class AuthService {
 private:
-  OperationBuilder m_operationBuilder;
+  std::shared_ptr<OperationBuilder> m_operationBuilder;
 
 public:
+  AuthService(std::shared_ptr<OperationBuilder> userRepo);
   bool login(std::string username, std::string password);
 };

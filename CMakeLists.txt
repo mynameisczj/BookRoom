@@ -87,6 +87,10 @@ add_executable(run_tests
     test/test_jsondb.cpp
     test/test_operation_builder.cpp
     test/test_converter.cpp
+    test/test_authservice.cpp
+    test/test_userservice.cpp
+    test/test_roomservice.cpp
+    test/test_reservationservice.cpp
 )
 
 # 链接测试可执行文件

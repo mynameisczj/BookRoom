@@ -6,9 +6,10 @@
 
 class UserService {
 private:
-  OperationBuilder m_operationBuilder;
+  std::shared_ptr<OperationBuilder> m_operationBuilder;
 
 public:
+  UserService(std::shared_ptr<OperationBuilder> userRepo);
   std::vector<User> getGlobalUser();
   User getOneUser(const uint64_t userId);
   bool addUser(User user);

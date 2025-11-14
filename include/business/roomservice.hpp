@@ -5,11 +5,12 @@
 
 class RoomService {
 private:
-  OperationBuilder m_operationBuilder;
+  std::shared_ptr<OperationBuilder> m_operationBuilder;
 
 public:
-  std::vector<Room> getGlobalUser();
-  Room getOneUser(const uint64_t RoomId);
-  bool addUser(Room room);
-  bool deleteUser(const uint64_t RoomId);
+  RoomService(std::shared_ptr<OperationBuilder> roomRepo);
+  std::vector<Room> getGlobalRoom();
+  Room getOneRoom(const uint64_t RoomId);
+  bool addRoom(Room room);
+  bool deleteRoom(const uint64_t RoomId);
 };

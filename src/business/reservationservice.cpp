@@ -2,7 +2,9 @@
 #include "core/database/operation_builder.hpp"
 #include "core/entities/common.hpp"
 #include <vector>
-
+ReservationService::ReservationService(std::shared_ptr<OperationBuilder> reservationRepo) :
+    m_operationBuilder(reservationRepo) {
+}
 std::vector<Reservation> ReservationService::getPersonalReservations(uint64_t userId) {
   return {};
 }

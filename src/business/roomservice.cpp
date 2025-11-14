@@ -1,14 +1,16 @@
 #include "business/roomservice.hpp"
-
-std::vector<Room> getGlobalUser() {
+RoomService::RoomService(std::shared_ptr<OperationBuilder> roomRepo) :
+    m_operationBuilder(roomRepo) {
+}
+std::vector<Room> RoomService::getGlobalRoom() {
   return {};
 }
-Room getOneUser(const uint64_t RoomId) {
+Room RoomService::getOneRoom(const uint64_t RoomId) {
   return {};
 }
-bool addUser(Room room) {
+bool RoomService::addRoom(Room room) {
   return {};
 }
-bool deleteUser(const uint64_t RoomId) {
+bool RoomService::deleteRoom(const uint64_t RoomId) {
   return {};
 }

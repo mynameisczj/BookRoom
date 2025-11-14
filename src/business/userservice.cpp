@@ -1,5 +1,7 @@
 #include "business/userservice.hpp"
-
+UserService::UserService(std::shared_ptr<OperationBuilder> userRepo) :
+    m_operationBuilder(userRepo) {
+}
 std::vector<User> UserService::getGlobalUser() {
   return {};
 }

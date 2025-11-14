@@ -5,9 +5,10 @@
 
 class ReservationService {
 private:
-  OperationBuilder m_operationBuilder;
+  std::shared_ptr<OperationBuilder> m_operationBuilder;
 
 public:
+  ReservationService(std::shared_ptr<OperationBuilder> userRepo);
   std::vector<Reservation> getPersonalReservations(uint64_t userId);
   std::vector<Reservation> getGlobalReservations();
 
@@ -16,7 +17,8 @@ public:
   bool cancelReservation(uint64_t reservationId, uint64_t userId);
 
   bool approveReservation(uint64_t reservationId, const ReservationStatus &reservationStatus);
-  ReservationStatus getReservationStatus(uint64_t reservationId);
 
   bool cleanReservation();
+
+  ReservationStatus getReservationStatus(uint64_t reservationId);
 };
